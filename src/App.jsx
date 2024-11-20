@@ -2,19 +2,28 @@ import { useState } from "react";
 import GameBoard from "./components/GameBoard";
 import Player from "./components/Player";
 import Log from "./components/Log";
+
+function deriveActivePlayer(gameTurns) {
+  let currentPlayer = "X";
+  if (gameTurns.length > 0 && gameTurns[0].player === "X") {
+    currentPlayer = "O";
+  }
+  return currentPlayer;
+}
 function App() {
-  const [activePlayer, setActivePlayer] = useState("X");
+  // const [activePlayer, setActivePlayer] = useState("X");
   const [gameTurns, setGameTurns] = useState([]);
 
+  const activePlayer = deriveActivePlayer(gameTurns);
+
+  // console.log(activePlayer);
+
   function handleClick(rowIndex, cellIndex) {
-    setActivePlayer((prev) => (prev === "X" ? "O" : "X"));
+    // setActivePlayer((prev) => (prev === "X" ? "O" : "X"));
     setGameTurns((prev) => {
-      let currentPlayer = "X";
-      if (prev.length > 0 && prev[0].player === "X") {
-        currentPlayer = "O";
-      }
+      const currentPlayer = deriveActivePlayer(prev);
       const updatedTurns = [
-        { square: { row: rowIndex, col: cellIndex }, player: activePlayer },
+        { square: { row: rowIndex, col: cellIndex }, player: currentPlayer },
         ...prev,
       ];
       return updatedTurns;
