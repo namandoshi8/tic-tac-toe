@@ -6,30 +6,40 @@ const initalBoard = [
   [null, null, null],
 ];
 
-function GameBoard() {
-  const [gameBoard, setGameBoard] = useState(initalBoard);
-  //   console.log(gameBoard);
+function GameBoard({ onClickSquare, turns }) {
+  let gameBoard = initalBoard;
+  console.log(turns);
 
-  function handleClick(rowIndex, cellIndex) {
-    // console.log(gameBoard);
-    setGameBoard((prevBoard) => {
-      const newBoard = [...prevBoard];
-      //   console.log(1, newBoard);
-      newBoard[rowIndex][cellIndex] = "X";
-      //   console.log(2, newBoard);
-      return newBoard;
-    });
+  for (const turn of turns) {
+    const { square, player } = turn;
+    const { row, col } = square;
+    gameBoard[row][col] = player;
   }
+
+  //   const [gameBoard, setGameBoard] = useState(initalBoard);
+  //   //   console.log(gameBoard);
+
+  //   function handleClick(rowIndex, cellIndex) {
+  //     // console.log(gameBoard);
+  //     setGameBoard((prevBoard) => {
+  //       const newBoard = [...prevBoard];
+  //       //   console.log(1, newBoard);
+  //       newBoard[rowIndex][cellIndex] = activePlayerSymbol;
+  //       //   console.log(2, newBoard);
+  //       return newBoard;
+  //     });
+  //     onClickSquare();
+  //   }
 
   return (
     <ol id="game-board">
-      {initalBoard.map((row, rowIndex) => {
+      {gameBoard.map((row, rowIndex) => {
         return (
           <li key={rowIndex}>
             <ol>
               {row.map((playerSymbol, cellIndex) => (
                 <li key={cellIndex}>
-                  <button onClick={() => handleClick(rowIndex, cellIndex)}>
+                  <button onClick={() => onClickSquare(rowIndex, cellIndex)}>
                     {playerSymbol}
                   </button>
                 </li>
