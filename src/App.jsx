@@ -17,7 +17,11 @@ function App() {
         { square: { row: rowIndex, col: cellIndex }, player: activePlayer },
         ...prev,
       ];
+      return updatedTurns;
     });
+    console.log(gameTurns);
+    console.log(activePlayer);
+    console.log(rowIndex, cellIndex);
   }
 
   return (
@@ -30,7 +34,7 @@ function App() {
         {/* Game Board */}
         <GameBoard onClickSquare={handleClick} turns={gameTurns} />
       </div>
-      <Log />
+      <Log turns={gameTurns} />
     </main>
   );
 }

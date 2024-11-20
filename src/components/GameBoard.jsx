@@ -14,6 +14,7 @@ function GameBoard({ onClickSquare, turns }) {
     const { square, player } = turn;
     const { row, col } = square;
     gameBoard[row][col] = player;
+    console.log(gameBoard);
   }
 
   //   const [gameBoard, setGameBoard] = useState(initalBoard);
